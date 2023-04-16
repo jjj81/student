@@ -1,0 +1,18 @@
+<html xmlns="http://www.thymeleaf.org">
+
+<body>
+	<h> 学生登陆页面</h>
+	<form>
+		<label>学号：</label>
+		<input type="text" maxlength="12" minlength="12" placeholder="学号，输入11位数字" required>
+		<p />
+		<label>密码：</label>
+		<input type="password" placeholder="密码" required>
+		<p />
+		<input type="submit" value="登录">
+		<p />
+		<a th:href="@{/register}"> 注册</a>
+	</form>
+</body>
+
+</html>
