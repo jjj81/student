@@ -15,6 +15,8 @@ public class RegisterController {
 
 	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();   
 
+
+    
 	@Autowired
 	RegisterMapper registerMapper;
     
@@ -26,7 +28,6 @@ public class RegisterController {
 
 	@PostMapping("/registerCreate")
 	String registerCreate(final LoginInfo registerInfo) {
-
 		if (registerMapper.searchByStudentId(registerInfo.getStudentId()) != null) {
 			return "accountBeRegistered";
 		}
