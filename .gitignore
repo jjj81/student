@@ -1,7 +1,5 @@
 HELP.md
-
-!**/src/main/resources/application.properties
-
+/home/jsw/project/java/student/src/main/resources/application.properties
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
