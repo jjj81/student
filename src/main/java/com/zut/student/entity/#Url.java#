@@ -1,0 +1,9 @@
+
+package com.zut.student.entity;
+
+public enum Url {
+	LeetCode("LeetCode"),
+	Oj("Oj");
+
+	public static final Url[] ALL = { LeetCode, Oj };
+}

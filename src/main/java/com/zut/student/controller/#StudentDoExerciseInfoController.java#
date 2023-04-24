@@ -30,8 +30,8 @@ public class StudentDoExerciseInfoController {
 	}
 
 	@PostMapping("/searchByIdAndUrl")
-	String searchByIdAndUrl(String studentId,String Url) {
-
+	String searchByIdAndUrl(Model model, String studentId, String Url) {
+		model.addAttribute("searchList", studentDoExerciseInfoMapper.searchByIdAndWebSiteUrl(studentId, Url));
 		return "studentDoExerciseInfoSearchByIdAndUrl";
 	}
 }

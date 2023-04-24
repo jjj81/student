@@ -1,0 +1,8 @@
+
+package com.zut.student.entity;
+
+public enum UrlEnum{
+    LeetCode,
+    Oj
+}
+

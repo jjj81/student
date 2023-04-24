@@ -23,7 +23,7 @@ public class LoginController {
 	}
 
 	@PostMapping("/login/confirm")
-	String loginInfoConfirm(final LoginInfo loginInfo) {
+	String loginInfoConfirm(final LoginInfo loginInfo, Model model) {
 		if (registerMapper.searchByStudentId(loginInfo.getStudentId()) == null) {
 			return "userNotExist";
 		}
@@ -31,6 +31,8 @@ public class LoginController {
 				(registerMapper.searchByStudentId(loginInfo.getStudentId())).getPassWord()) == false)) {
 			return "passwordError";
 		}
+
+		model.addAttribute("studentId", loginInfo.getStudentId());
 		return "studentIndex";
 
 	}

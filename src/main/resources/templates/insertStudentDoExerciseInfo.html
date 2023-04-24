@@ -2,7 +2,49 @@
 
 <body>
 	<h1>学生做题信息添加表单</h1>
-	<form th:action="@{/studentDoExerciseInfo/insert}" method="post" th:object="$studentDoExerciseInfo">
+	<form th:action="@{/studentDoExerciseInfo/insert}" method="post" th:object="${studentDoExerciseInfo}">
+		<label>学号:</label>
+		<input type="text"  th:field="*{studentId}" value="${studentId}">
+		<p />
+
+		<p>请选择刷题网址</p>
+		<input type="radio" id="1" name="url" value="leetcode" th:field="*{doExerciseWebSiteUrl}">
+		<lable for="1"> leetcode</lable>
+		<p />
+		<input type="radio" id="2" name="url" value="oj" th:field="*{doExerciseWebSiteUrl}">
+		<lable for="1"> oj</lable>
+		<p />
+		<input type="email" th:field="*{doExerciseWebSiteAccount}" placeholder="刷题网站账号" required />
+		<p />
+
+		<input type="number" th:field="*{solveExerciseNumber}" placeholder="解决题数" require />
+		<p />
+
+		<label> 刷题开始日期：</label>
+		<input type="date" th:field="*{doExerciseStartTime}" required />
+		<p />
+
+		<label> 刷题结束日期：</label>
+		<input type="date" th:field="*{doExerciseEndTime}" required />
+		<p />
+
+		<label>网站刷题情况截图1</label>
+		<input type="file" th:field="*{doExercisePhoto1}">
+		<p />
+
+
+		<label>网站刷题情况截图2</label>
+		<input type="file" th:field="*{doExercisePhoto2}">
+		<p />
+
+
+		<label>网站刷题情况截图3</label>
+		<input type="file" th:field="*{doExercisePhoto3}">
+		<p />
+
+
+		<input type="submit" value="加入此条信息">
+
 
 	</form>
 </body>
