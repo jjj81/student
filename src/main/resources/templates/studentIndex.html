@@ -10,6 +10,24 @@
 	<h>学生个人页面</h>
 	<p />
 	<a th:href="@{/studentDoExerciseInfo/get}">刷题信息填写</a>
+	<p />
+	<fieldset>
+		<legend>
+			查看本人在各个网站的刷题情况</legend>
+		<form th:action="@{/studentDoExerciseInfo/searchByIdAndUrl}" th:object="${studentDoExerciseInfo}" method="post">
+			<label for="url">选择刷题网站</label>
+			<select id="url" th:field="*{doExerciseWebSiteUrl}">
+				<option value="leetcode">leetcode</option>
+				<option value="oj">oj</option>
+			</select>
+			<p />
+
+			<input type="radio" id="1" value="201928024110" th:field="*{studentId}">
+			<lable for="1">201928024110</lable>
+
+			<input type="submit" value="查询" />
+		</form>
+	</fieldset>
 
 </body>
 

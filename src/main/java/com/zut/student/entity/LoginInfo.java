@@ -1,4 +1,5 @@
 package com.zut.student.entity;
+	 
 
 public class LoginInfo {
 	private String studentId;

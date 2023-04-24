@@ -1,6 +1,7 @@
 package com.zut.student.controller;
 
 import com.zut.student.entity.LoginInfo;
+import com.zut.student.entity.StudentDoExerciseInfo;
 import com.zut.student.mapper.RegisterMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +32,17 @@ public class LoginController {
 				(registerMapper.searchByStudentId(loginInfo.getStudentId())).getPassWord()) == false)) {
 			return "passwordError";
 		}
-
-		model.addAttribute("studentId", loginInfo.getStudentId());
+		StudentDoExerciseInfo studentDoExerciseInfo = new StudentDoExerciseInfo();
+		model.addAttribute("studentDoExerciseInfo", studentDoExerciseInfo);
 		return "studentIndex";
+	}
 
+	@GetMapping("/studentIndex")
+	String returnStuentIndex(Model model) {
+		StudentDoExerciseInfo studentDoExerciseInfo = new StudentDoExerciseInfo();
+		model.addAttribute("studentDoExerciseInfo", studentDoExerciseInfo);
+
+		return "studentIndex";
 	}
 
 }
