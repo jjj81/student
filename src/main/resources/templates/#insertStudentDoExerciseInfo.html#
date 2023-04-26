@@ -18,19 +18,15 @@
 			<label>刷题网站账号：</label>
 			<input type="email" th:field="*{doExerciseWebSiteAccount}" placeholder="邮箱" required />
 			<p />
-
 			<label>解题数量:</label>
 			<input type="number" th:field="*{solveExerciseNumber}" placeholder="解决题数" require />
 			<p />
-
 			<label> 刷题开始日期：</label>
 			<input type="date" th:field="*{doExerciseStartTime}" required />
 			<p />
-
 			<label> 刷题结束日期：</label>
 			<input type="date" th:field="*{doExerciseEndTime}" required />
 			<p />
-
 			<label>网站刷题情况截图1</label>
 			<input type="file" th:field="*{doExercisePhoto1}">
 			<p />

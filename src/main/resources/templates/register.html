@@ -1,18 +1,60 @@
 <html xmlns="http://www.thymeleaf.org">
 
+<head>
+	<style>
+		.register {
+			margin: auto;
+			width: 50%;
+			border: 3px solid #73AD21;
+			padding: 10px;
+		}
+
+	</style>
+</head>
+
 <body>
-	<h> 学生注册页面</h>
-	<form th:action="@{/registerCreate}" th:object="${studentInfo}" method="post">
-		<label>学号：</label>
-		<input type="text" maxlength="12" minlength="12" placeholder="学号，输入12位数字" th:field="*{studentId}" required>
-		<p />
-		<label>密码：</label>
-		<input type="password" placeholder="密码" th:field="*{passWord}" required>
-		<p />
-		<input type="submit" value="注册">
-		<p />
-		<a th:href="@{/login}"> 返回登录页面 </a>
-	</form>
+	<div class="register">
+		<fieldset>
+
+			<legend>学生注册页面</legend>
+			<form th:action="@{/registerCreate}" th:object="${studentInfo}" method="post" onsubmit="return myFunction()">
+				<label>学号：</label>
+				<input type="text" maxlength="12" minlength="12" placeholder="学号，输入12位数字" th:field="*{studentId}" required>
+				<p />
+				<label>密码：</label>
+				<input id="pass1" type="password" placeholder="密码" th:field="*{passWord}" required>
+				<p />
+				<label>请确认密码:</label>
+				<input id="pass2" type="password" placeholder="请确认密码" required>
+				<p />
+				<label>请选择自己的班级:</label>
+				<select th:field="*{className}">
+					<option value="HB软件191">HB软件191</option>
+					<option value="HB软件192">HB软件192</option>
+					<option value="HB软件201">HB软件201</option>
+					<option value="HB软件202">HB软件202</option>
+				</select>
+				<script>
+					function myFunction() {
+						var pass1 = document.getElementById("pass1").value;
+						var pass2 = document.getElementById("pass2").value;
+						var ok = true;
+						if (pass1 != pass2) {
+							document.getElementById("pass1").style.borderColor = "#E34234";
+							document.getElementById("pass2").style.borderColor = "#E34234";
+							alert("两次输入密码不匹配");
+							return false;
+						}
+						return ok;
+					}
+				</script>
+				<p />
+				<input type="submit" value="注册">
+				<p />
+				<a th:href="@{/login}"> 返回登录页面 </a>
+			</form>
+		</fieldset>
+	</div>
 </body>
 
 </html>

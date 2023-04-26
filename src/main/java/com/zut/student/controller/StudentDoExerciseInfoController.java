@@ -26,11 +26,10 @@ public class StudentDoExerciseInfoController {
 	@PostMapping("/insert")
 	String insertStudentDoExerciseInfo(final StudentDoExerciseInfo studentDoExerciseInfo) {
 		if (studentDoExerciseInfo.getDoExerciseEndTime()
-				.after(studentDoExerciseInfo.getDoExerciseStartTime()) == false) {
+		    .after(studentDoExerciseInfo.getDoExerciseStartTime()) == false)
 			return "studentDoExerciseInfoTimeError";
-		}
-		if(studentDoExerciseInfo.getSolveExerciseNumber() < 0)
-		    return "studentDoExerciseInfoSolveNumberError";
+		if (studentDoExerciseInfo.getSolveExerciseNumber() < 0)
+			return "studentDoExerciseInfoSolveNumberError";
 		studentDoExerciseInfoMapper.insertStuentDoExerciseInfo(studentDoExerciseInfo);
 		return "insertStudentDoExerciseSuccess";
 	}

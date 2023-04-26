@@ -8,10 +8,10 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface RegisterMapper {
-	@Insert("insert into studentLoginInfo(studentId,passWord) values(#{studentId},#{passWord})")
-	void insertStudentInfo(LoginInfo loginInfo);
+    @Insert("insert into studentLoginInfo(studentId,passWord,className) values(#{studentId},#{passWord},#{className})")
+    void insertStudentInfo(LoginInfo loginInfo);
 
-	@Select("select * from studentLoginInfo where studentId=#{id}")
-	LoginInfo searchByStudentId(String id);
+    @Select("select * from studentLoginInfo where studentId=#{id}")
+    LoginInfo searchByStudentId(String id);
 
 }

@@ -12,5 +12,7 @@ doExerciseEndTime date not null,
 doExercisePhoto1 blob ,
 doExercisePhoto2 blob ,
 doExercisePhoto3 blob ,
+classes varchar(20),
+inClasses int default 0,
 primary key(doExerciseWebSiteUrl,doExerciseWebSiteAccount)
 );

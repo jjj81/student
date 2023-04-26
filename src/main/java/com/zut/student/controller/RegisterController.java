@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class RegisterController {
 
 	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();   
-
-
     
 	@Autowired
 	RegisterMapper registerMapper;
@@ -31,7 +29,7 @@ public class RegisterController {
 		if (registerMapper.searchByStudentId(registerInfo.getStudentId()) != null) {
 			return "accountBeRegistered";
 		}
-		registerInfo.setPassWord(encoder.encode(registerInfo.getPassWord()));
+		registerInfo.setPassWord(encoder.encode(registerInfo.getPassWord())); 
 		registerMapper.insertStudentInfo(registerInfo);
 		return "registerSuccess";
 	}
