@@ -13,6 +13,9 @@ public class StudentDoExerciseInfo {
 	private byte[] doExercisePhoto2;
 	private byte[] doExercisePhoto3;
 
+	private String classes;
+	private int inClasses;
+
 	public String getDoExerciseWebSiteUrl() {
 		return doExerciseWebSiteUrl;
 	}
@@ -83,6 +86,22 @@ public class StudentDoExerciseInfo {
 
 	public void setStudentId(String studentId) {
 		StudentId = studentId;
+	}
+
+	public String getClasses() {
+		return classes;
+	}
+
+	public void setClasses(String classes) {
+		this.classes = classes;
+	}
+
+	public int getInClasses() {
+		return inClasses;
+	}
+
+	public void setInClasses(int inClasses) {
+		this.inClasses = inClasses;
 	}
 
 }
