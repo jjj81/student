@@ -1,4 +1,4 @@
-package com.zut.student.controller;
+package com.zut.student.controller; // 
 
 import com.zut.student.entity.LoginInfo;
 import com.zut.student.mapper.RegisterMapper;

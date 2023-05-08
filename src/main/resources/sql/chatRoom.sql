@@ -1,5 +1,4 @@
 
-
 drop table if exists chatRoom;
 
 create table chatRoom(

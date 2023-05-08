@@ -4,7 +4,7 @@ public class LoginInfo {
 	private String studentId;
 	private String passWord;
 	private String className;
-	private Integer inClass;
+	private String studentName;
 
 	public String getStudentId() {
 		return studentId;
@@ -30,12 +30,12 @@ public class LoginInfo {
 		this.className = className;
 	}
 
-	public Integer getInClass() {
-		return inClass;
+	public String getStudentName() {
+		return studentName;
 	}
 
-	public void setInClass(Integer inClass) {
-		this.inClass = inClass;
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
 	}
 
 }
