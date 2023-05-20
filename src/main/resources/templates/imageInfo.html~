@@ -1,0 +1,24 @@
+<html xmlns="http://www.thymeleaf.org">
+
+<body>
+	<h1>刷题情况截图</h1>
+
+	<fieldset>
+		<legend>上传截图</legend>
+		<fieldset>
+			<legend>图1</legend>
+			<img th:src="@{'data:image/png;base64,' + ${base64Photo1}}">
+
+			<form th:action="@{/emage/upload1(url=${url},account=${account},id=${studentId})}" enctype="multipart/form-data"
+				method="post">
+				<input type="file" name="image" required>
+
+				<p />
+				<input type="submit" value="修改">
+			</form>
+		</fieldset>
+	</fieldset>
+	<a th:href="@{/studentDoExerciseInfo/{studentId}(studentId=${studentId})}">返回</a>
+</body>
+
+</html>

@@ -20,9 +20,11 @@ public class ChatRoomController {
 
 	@Autowired
 	private ChatInfoMapper chatInfoMapper;
+
 	@GetMapping("/{studentId}")
 	String getIndex(Model model, @PathVariable("studentId") String studentId) {
-		model.addAttribute("chatRecordList", chatInfoMapper.selectAllChatInfo());
+		model.addAttribute("chatRecordList", chatInfoMapper
+				.selectChatInfoByClassName(studentInfoMapper.searchStudentByStudentId(studentId).getClassName()));
 		model.addAttribute("className", studentInfoMapper.searchStudentByStudentId(studentId).getClassName());
 		model.addAttribute("chatInfo", new ChatInfo());
 		return "chatRoom";
@@ -30,8 +32,11 @@ public class ChatRoomController {
 
 	@PostMapping("/insert/{studentId}")
 	String insertChatInfo(@PathVariable("studentId") String studentId, Model model, final ChatInfo chatInfo) {
-		chatInfoMapper.insertChatInfo(studentId, chatInfo.getLineText());
-		model.addAttribute("chatRecord", chatInfoMapper.selectAllChatInfo());
+		chatInfoMapper.insertChatInfo(studentId, chatInfo.getLineText(),
+				studentInfoMapper.searchStudentByStudentId(studentId).getClassName(),
+				studentInfoMapper.searchStudentByStudentId(studentId).getStudentName());
+		model.addAttribute("chatRecordList", chatInfoMapper
+				.selectChatInfoByClassName(studentInfoMapper.searchStudentByStudentId(studentId).getClassName()));
 		model.addAttribute("className", studentInfoMapper.searchStudentByStudentId(studentId).getClassName());
 		model.addAttribute("chatInfo", new ChatInfo());
 		return "chatRoom";

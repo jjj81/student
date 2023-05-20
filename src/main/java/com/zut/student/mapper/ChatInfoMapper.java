@@ -10,9 +10,9 @@ import com.zut.student.entity.ChatInfo;
 @Mapper
 public interface ChatInfoMapper {
 
-	@Insert("insert into chatRoom(userId,lineText) values(#{userId},#{lineText})")
-	void insertChatInfo(String userId, String lineText);
+	@Insert("insert into chatRoom(userId,lineText,className,userName) values(#{userId},#{lineText},#{className},#{userName})")
+	void insertChatInfo(String userId, String lineText, String className, String userName);
 
-	@Select("select * from chatRoom ")
-	List<ChatInfo> selectAllChatInfo();
+	@Select("select * from chatRoom  where className=#{className}")
+	List<ChatInfo> selectChatInfoByClassName(String className);
 }

@@ -9,12 +9,20 @@
 			padding: 10px;
 		}
 
+		.error {
+			color: red;
+		}
+
 	</style>
 </head>
 
 
 <body>
 	<div class="login">
+		<div class="error">
+			<span th:if="${userNotExist}" th:text="${userNotExist}"></span>
+			<span th:if="${passWordError}" th:text="${passWordError}"></span>
+		</div>
 		<fieldset>
 			<legend>
 				学生登陆页面</legend>
@@ -27,7 +35,6 @@
 				<p />
 				<input type="submit" value="登录">
 				<p />
-				<a th:href="@{/register}">没有账号请注册</a>
 			</form>
 		</fieldset>
 	</div>

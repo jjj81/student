@@ -8,11 +8,13 @@
 			<legend>
 				个人信息
 			</legend>
+			<a th:href="@{/personalInfo/{studentId}(studentId=${studentId})}">查看学生个人信息</a>
 		</fieldset>
 		<fieldset>
 			<legend>
 				个人刷题信息
 			</legend>
+			<a th:href="@{/studentDoExerciseInfo/{studentId}(studentId=${studentId})}">个人刷题信息</a>
 		</fieldset>
 		<fieldset>
 			<legend>

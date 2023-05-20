@@ -5,7 +5,10 @@
 	<fieldset>
 		<table>
 			<tr th:each="chatRecord:${chatRecordList}">
-				<td><span th:text="${chatRecord.userId}"></span>:</td>
+				<td>
+					<span th:if="${chatRecord.userName == null}" th:text="${chatRecord.userId}"></span>
+					<span th:unless="${chatRecord.userName == null}" th:text="${chatRecord.userName}"></span>
+				</td>
 				<td th:text="${chatRecord.lineText}">
 					<!--		<td><time th:text="${chatRecord.createAt}"></time></td> -->
 

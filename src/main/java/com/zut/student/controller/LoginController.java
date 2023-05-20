@@ -26,11 +26,17 @@ public class LoginController {
 	@PostMapping("/login/confirm")
 	String loginInfoConfirm(final LoginInfo loginInfo, Model model) {
 		if (registerMapper.searchByStudentId(loginInfo.getStudentId()) == null) {
-			return "userNotExist";
+			model.addAttribute("userNotExist", "学号不存在，请检查是否填错或联系老师添加");
+			model.addAttribute("studentInfo", new LoginInfo());
+			return "login";
+
 		}
 		if ((encoder.matches(loginInfo.getPassWord(),
 				(registerMapper.searchByStudentId(loginInfo.getStudentId())).getPassWord()) == false)) {
-			return "passwordError";
+			model.addAttribute("passWordError", "密码错误");
+			model.addAttribute("studentInfo", new LoginInfo());
+			return "login";
+
 		}
 		model.addAttribute("studentId", loginInfo.getStudentId());
 		return "studentIndex";

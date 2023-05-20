@@ -1,0 +1,64 @@
+<html xmlns="http://www.thymeleaf.org">
+
+<body>
+	<h1>学生个人主页</h1>
+	<fieldset>
+		<legend>
+			学生个人信息查询
+		</legend>
+		<table>
+			<tr>
+				<th>学号</th>
+				<th>姓名</th>
+				<th>班级</th>
+			</tr>
+			<tr>
+				<td th:text="${studentPersonalInfo.studentId}">
+				<td>
+					<span th:if="${studentPersonalInfo.studentName == null}">null</span>
+					<span th:unless="${studentPersonalInfo.studentName == null}" th:text="${studentPersonalInfo.studentName}">
+				</td>
+				<td th:text="${studentPersonalInfo.className}">
+			</tr>
+		</table>
+	</fieldset>
+	<fieldset>
+		<legend>
+			修改学生个人信息
+		</legend>
+		<form th:action="@{/personalInfo/updateName/{studentId}(studentId=${studentId})}" th:object="${studentPersonalInfo}"
+			method="post">
+			<label>修改姓名</label>
+			<input type="text" th:field="*{studentName}" required>
+			<p />
+			<input type="submit" value="修改">
+		</form>
+	</fieldset>
+	<fieldset>
+		<legend>修改密码</legend>
+		<form th:action="@{/personalInfo/updatePassWord/{studentId}(studentId=${studentId})}"
+			th:object="${studentPersonalInfo}" method="post" onsubmit="return confirm()">
+			<label>新密码</label>
+			<input id="pass1" type="password" th:field="*{passWord}" required>
+			<p />
+			<label>确认新密码</label>
+			<input id="pass2" type="password" required>
+			<p />
+			<input type="submit" value="修改">
+		</form>
+	</fieldset>
+	<script>
+		function confirm() {
+			var pass1 = document.getElementById("pass1");
+			var pass2 = document.getElementById("pass2");
+			if (pass1.value != pass2.value) {
+				alert("密码不匹配");
+				return false;
+			}
+			return ok;
+		}
+	</script>
+	<a th:href="@{/studentIndex/{studentId}(studentId=${studentId})}">返回学生主页</a>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+<html xmlns="http://www.thymeleaf.org">
+
+<body>
+	<h1>学生刷题信息页</h1>
+	<fieldset>
+		<legend>
+			学生刷题信息查询
+		</legend>
+		<table>
+			<tr>
+				<th>学号</th>
+				<th>刷题网站</th>
+				<th>刷题网站账号</th>
+				<th>解题数量</th>
+				<th>开始刷题日期</th>
+				<th>结束日期</th>
+				<th>网站刷题情况截图</th>
+				<th>删除</th>
+			</tr>
+			</tr>
+			<tr th:each="info:${personalDoExerciseInfo}">
+				<td th:text="${info.studentId}">
+				<td><a th:href="@{'https://'+${info.doExerciseWebSiteUrl}}" th:text="${info.doExerciseWebSiteUrl}"></a></td>
+				<td th:text="${info.doExerciseWebSiteAccount}">
+				<td th:text="${info.solveExerciseNumber}">
+				<td th:text="${info.doExerciseStartTime}">
+				<td th:text="${info.doExerciseEndTime}">
+				<td><a
+						th:href="@{/emage/search(url=${info.doExerciseWebSiteUrl},account=${info.doExerciseWebSiteAccount},studentId=${info.studentId})}">查询</a>
+				</td>
+				<td><a
+						th:href="@{/studentDoExerciseInfo/delete(doExerciseWebSiteUrl=${info.doExerciseWebSiteUrl},doExerciseWebSiteAccount=${info.doExerciseWebSiteAccount},studentId=${info.studentId})}">删除</a>
+				</td>
+
+			</tr>
+		</table>
+	</fieldset>
+	<fieldset>
+		<legend>
+			学生做题信息添加表单</legend>
+		<form th:action="@{/studentDoExerciseInfo/insert/{studentId}(studentId=${studentId})}" method="post"
+			th:object="${studentDoExerciseInfo}">
+			<label>请选择刷题网址:</label>
+			<select th:field="*{doExerciseWebSiteUrl}">
+				<option th:each="url:${allUrl}" th:value="${url.webSiteUrl}" th:text="${url.webSiteUrl}">
+			</select>
+			<p />
+			<label>刷题网站账号：</label>
+			<input type="email" th:field="*{doExerciseWebSiteAccount}" placeholder="邮箱" required />
+			<p />
+			<label>解题数量:</label>
+			<input type="number" th:field="*{solveExerciseNumber}" placeholder="解决题数" require />
+			<p />
+			<label> 刷题开始日期：</label>
+			<input type="date" th:field="*{doExerciseStartTime}" required />
+			<p />
+			<label> 刷题结束日期：</label>
+			<input type="date" th:field="*{doExerciseEndTime}" required />
+			<p />
+			<input type="submit" value="加入此条信息">
+		</form>
+
+	</fieldset>
+	<a th:href="@{/studentIndex/{studentId}(studentId=${studentId})}">返回学生主页</a>
+</body>
+
+</html>
