@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/chatRoom")
@@ -22,23 +23,26 @@ public class ChatRoomController {
 	private ChatInfoMapper chatInfoMapper;
 
 	@GetMapping("/{studentId}")
-	String getIndex(Model model, @PathVariable("studentId") String studentId) {
-		model.addAttribute("chatRecordList", chatInfoMapper
-				.selectChatInfoByClassName(studentInfoMapper.searchStudentByStudentId(studentId).getClassName()));
-		model.addAttribute("className", studentInfoMapper.searchStudentByStudentId(studentId).getClassName());
-		model.addAttribute("chatInfo", new ChatInfo());
+	String inRoom(Model model, @PathVariable("studentId") String studentId) {
+		model.addAttribute("chat", new ChatInfo());
+		model.addAttribute("message", chatInfoMapper
+				.selectChatInfoByClazzId(studentInfoMapper.searchStudentByStudentId(studentId).getClazzId()));
+		model.addAttribute("studentId", studentId);
 		return "chatRoom";
 	}
 
-	@PostMapping("/insert/{studentId}")
-	String insertChatInfo(@PathVariable("studentId") String studentId, Model model, final ChatInfo chatInfo) {
-		chatInfoMapper.insertChatInfo(studentId, chatInfo.getLineText(),
-				studentInfoMapper.searchStudentByStudentId(studentId).getClassName(),
-				studentInfoMapper.searchStudentByStudentId(studentId).getStudentName());
-		model.addAttribute("chatRecordList", chatInfoMapper
-				.selectChatInfoByClassName(studentInfoMapper.searchStudentByStudentId(studentId).getClassName()));
-		model.addAttribute("className", studentInfoMapper.searchStudentByStudentId(studentId).getClassName());
-		model.addAttribute("chatInfo", new ChatInfo());
+	@PostMapping("/seedMessage")
+	String seedMessage(Model model, @RequestParam("studentId") String studentId, final ChatInfo chatInfo) {
+		chatInfo.setUserId(studentId);
+		chatInfo.setLineText(chatInfo.getLineText());
+		chatInfo.setClazzId(studentInfoMapper.searchStudentByStudentId(studentId).getClazzId());
+		chatInfoMapper.insertChatInfo(chatInfo);
+		model.addAttribute("chat", new ChatInfo());
+		model.addAttribute("message", chatInfoMapper
+				.selectChatInfoByClazzId(studentInfoMapper.searchStudentByStudentId(studentId).getClazzId()));
+
+		model.addAttribute("studentId", studentId);
+
 		return "chatRoom";
 	}
 

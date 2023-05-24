@@ -4,8 +4,7 @@ public class ChatInfo {
 
 	private String userId;
 	private String lineText;
-	private String className;
-	private String userName;
+	private Integer clazzId;
 
 	public String getUserId() {
 		return userId;
@@ -23,20 +22,12 @@ public class ChatInfo {
 		this.lineText = lineText;
 	}
 
-	public String getClassName() {
-		return className;
+	public Integer getClazzId() {
+		return clazzId;
 	}
 
-	public void setClassName(String className) {
-		this.className = className;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setClazzId(Integer clazzId) {
+		this.clazzId = clazzId;
 	}
 
 }

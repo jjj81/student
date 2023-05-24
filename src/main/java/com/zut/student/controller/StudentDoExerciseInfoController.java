@@ -1,5 +1,7 @@
 package com.zut.student.controller;
 
+import java.sql.Date;
+
 import com.zut.student.entity.StudentDoExerciseInfo;
 import com.zut.student.mapper.StudentDoExerciseInfoMapper;
 import com.zut.student.mapper.UrlAndPowerInfoMapper;
@@ -46,6 +48,17 @@ public class StudentDoExerciseInfoController {
 					studentDoExerciseInfoMapper.searchStudentDoExerciseInfoById(studentId));
 			return "doExerciseInfo";
 		}
+		if (studentDoExerciseInfoMapper.selectByUrlAndAccount(studentDoExerciseInfo.getDoExerciseWebSiteUrl(),
+				studentDoExerciseInfo.getDoExerciseWebSiteAccount()) != null) {
+			model.addAttribute("infoExist", "该url和account的组合在数据库中已有实例，请勿重复添加");
+			model.addAttribute("allUrl", urlAndPowerInfoMapper.selectAll());
+			model.addAttribute("studentId", studentId);
+			model.addAttribute("studentDoExerciseInfo", new StudentDoExerciseInfo());
+			model.addAttribute("personalDoExerciseInfo",
+					studentDoExerciseInfoMapper.searchStudentDoExerciseInfoById(studentId));
+			return "doExerciseInfo";
+
+		}
 		studentDoExerciseInfo.setStudentId(studentId);
 		studentDoExerciseInfoMapper.insertStuentDoExerciseInfo(studentDoExerciseInfo);
 
@@ -65,6 +78,95 @@ public class StudentDoExerciseInfoController {
 
 		studentDoExerciseInfoMapper.deleteStudentDoExerciseInfo(doExerciseWebSiteUrl, doExerciseWebSiteAccount);
 
+		model.addAttribute("allUrl", urlAndPowerInfoMapper.selectAll());
+		model.addAttribute("studentId", studentId);
+		model.addAttribute("studentDoExerciseInfo", new StudentDoExerciseInfo());
+		model.addAttribute("personalDoExerciseInfo",
+				studentDoExerciseInfoMapper.searchStudentDoExerciseInfoById(studentId));
+
+		return "doExerciseInfo";
+	}
+
+	@PostMapping("/updateStudentComment")
+	String updateStudentComment(Model model, @RequestParam("studentId") String studentId,
+			@RequestParam("url") String url, @RequestParam("account") String account,
+			final StudentDoExerciseInfo studentDoExerciseInfo) {
+
+		studentDoExerciseInfoMapper.updateStudentComment(studentDoExerciseInfo.getStudentComment(), url, account);
+		model.addAttribute("allUrl", urlAndPowerInfoMapper.selectAll());
+		model.addAttribute("studentId", studentId);
+		model.addAttribute("studentDoExerciseInfo", new StudentDoExerciseInfo());
+		model.addAttribute("personalDoExerciseInfo",
+				studentDoExerciseInfoMapper.searchStudentDoExerciseInfoById(studentId));
+
+		return "doExerciseInfo";
+	}
+
+	@PostMapping("/updateSolveNumber")
+	String updateSolveNumber(Model model, @RequestParam("studentId") String studentId,
+			@RequestParam("url") String url, @RequestParam("account") String account,
+			final StudentDoExerciseInfo studentDoExerciseInfo) {
+		studentDoExerciseInfoMapper.updateSolveNumber(studentDoExerciseInfo.getSolveExerciseNumber(), url, account);
+		model.addAttribute("allUrl", urlAndPowerInfoMapper.selectAll());
+		model.addAttribute("studentId", studentId);
+		model.addAttribute("studentDoExerciseInfo", new StudentDoExerciseInfo());
+		model.addAttribute("personalDoExerciseInfo",
+				studentDoExerciseInfoMapper.searchStudentDoExerciseInfoById(studentId));
+
+		return "doExerciseInfo";
+
+	}
+
+	@PostMapping("/updateStartTime")
+	String updateStartTime(Model model, @RequestParam("studentId") String studentId,
+			@RequestParam("url") String url, @RequestParam("account") String account,
+			final StudentDoExerciseInfo studentDoExerciseInfo) {
+		Date endTime;
+		endTime = studentDoExerciseInfoMapper.selectByUrlAndAccount(url, account).getDoExerciseEndTime();
+
+		if (studentDoExerciseInfo.getDoExerciseStartTime().before(endTime) == false) {
+			model.addAttribute("upTimeError", "开始日期大于结束日期!!!!!");
+
+			model.addAttribute("allUrl", urlAndPowerInfoMapper.selectAll());
+			model.addAttribute("studentId", studentId);
+			model.addAttribute("studentDoExerciseInfo", new StudentDoExerciseInfo());
+			model.addAttribute("personalDoExerciseInfo",
+					studentDoExerciseInfoMapper.searchStudentDoExerciseInfoById(studentId));
+
+			return "doExerciseInfo";
+
+		}
+		studentDoExerciseInfoMapper.updateStartTime(studentDoExerciseInfo.getDoExerciseStartTime(), url, account);
+		model.addAttribute("allUrl", urlAndPowerInfoMapper.selectAll());
+		model.addAttribute("studentId", studentId);
+		model.addAttribute("studentDoExerciseInfo", new StudentDoExerciseInfo());
+		model.addAttribute("personalDoExerciseInfo",
+				studentDoExerciseInfoMapper.searchStudentDoExerciseInfoById(studentId));
+
+		return "doExerciseInfo";
+
+	}
+
+	@PostMapping("/updateEndTime")
+	String updateEndTime(Model model, @RequestParam("studentId") String studentId,
+			@RequestParam("url") String url, @RequestParam("account") String account,
+			final StudentDoExerciseInfo studentDoExerciseInfo) {
+		Date startTime;
+		startTime = studentDoExerciseInfoMapper.selectByUrlAndAccount(url, account).getDoExerciseStartTime();
+
+		if (studentDoExerciseInfo.getDoExerciseEndTime().after(startTime) == false) {
+			model.addAttribute("upTimeError", "开始日期大于结束日期!!!!!");
+
+			model.addAttribute("allUrl", urlAndPowerInfoMapper.selectAll());
+			model.addAttribute("studentId", studentId);
+			model.addAttribute("studentDoExerciseInfo", new StudentDoExerciseInfo());
+			model.addAttribute("personalDoExerciseInfo",
+					studentDoExerciseInfoMapper.searchStudentDoExerciseInfoById(studentId));
+
+			return "doExerciseInfo";
+
+		}
+		studentDoExerciseInfoMapper.updateEndTime(studentDoExerciseInfo.getDoExerciseEndTime(), url, account);
 		model.addAttribute("allUrl", urlAndPowerInfoMapper.selectAll());
 		model.addAttribute("studentId", studentId);
 		model.addAttribute("studentDoExerciseInfo", new StudentDoExerciseInfo());

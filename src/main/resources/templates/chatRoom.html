@@ -1,27 +1,20 @@
 <html xmlns="http://www.thymeleaf.org">
 
 <body>
-	<h1><span th:text="${className}"></span>聊天室</h1>
 	<fieldset>
+		<legend>message</legend>
 		<table>
-			<tr th:each="chatRecord:${chatRecordList}">
-				<td>
-					<span th:if="${chatRecord.userName == null}" th:text="${chatRecord.userId}"></span>
-					<span th:unless="${chatRecord.userName == null}" th:text="${chatRecord.userName}"></span>
-				</td>
-				<td th:text="${chatRecord.lineText}">
-					<!--		<td><time th:text="${chatRecord.createAt}"></time></td> -->
-
+			<tr th:each="m:${message}">
+				<td th:text="${m.userId}">
+				<td th:text="${m.lineText}">
 			</tr>
 		</table>
 	</fieldset>
 	<fieldset>
-		<legend>发送消息</legend>
-		<form th:action="@{/chatRoom/insert/{studentId}(studentId=${studentId})}" th:object="${chatInfo}" method="post">
-			<textarea rows="4" cols="50" th:field="${chatInfo.lineText}" required></textarea>
-			<p />
+		<legend>send</legend>
+		<form th:action="@{/chatRoom/seedMessage(studentId=${studentId})}" th:object="${chat}" method="post">
+			<textarea th:field="*{lineText}"></textarea>
 			<input type="submit" value="发送">
-
 		</form>
 	</fieldset>
 	<a th:href="@{/studentIndex/{studentId}(studentId=${studentId})}">返回主页</a>

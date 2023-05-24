@@ -1,11 +1,10 @@
 package com.zut.student.entity;
 
-public class LoginInfo {
-	private String studentId;
-	private String passWord;
-	private String studentName;
+public class Rank {
 
-	private Integer clazzId;
+	private String studentId;
+	private String studentName;
+	private Float compositeScore;
 
 	public String getStudentId() {
 		return studentId;
@@ -13,14 +12,6 @@ public class LoginInfo {
 
 	public void setStudentId(String studentId) {
 		this.studentId = studentId;
-	}
-
-	public String getPassWord() {
-		return passWord;
-	}
-
-	public void setPassWord(String passWord) {
-		this.passWord = passWord;
 	}
 
 	public String getStudentName() {
@@ -31,12 +22,12 @@ public class LoginInfo {
 		this.studentName = studentName;
 	}
 
-	public Integer getClazzId() {
-		return clazzId;
+	public Float getCompositeScore() {
+		return compositeScore;
 	}
 
-	public void setClazzId(Integer clazzId) {
-		this.clazzId = clazzId;
+	public void setCompositeScore(Float compositeScore) {
+		this.compositeScore = compositeScore;
 	}
 
 }

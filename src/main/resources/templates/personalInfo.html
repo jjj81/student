@@ -1,64 +1,68 @@
 <html xmlns="http://www.thymeleaf.org">
+<style>
+	.passWdError {
+		color: red;
+	}
+
+	.upPWSuccess {
+		color: green;
+	}
+
+</style>
 
 <body>
 	<h1>学生个人主页</h1>
 	<fieldset>
-		<legend>
-			学生个人信息查询
-		</legend>
-		<table>
-			<tr>
-				<th>学号</th>
-				<th>姓名</th>
-				<th>班级</th>
-			</tr>
-			<tr>
-				<td th:text="${studentPersonalInfo.studentId}">
-				<td>
-					<span th:if="${studentPersonalInfo.studentName == null}">null</span>
-					<span th:unless="${studentPersonalInfo.studentName == null}" th:text="${studentPersonalInfo.studentName}">
-				</td>
-				<td th:text="${studentPersonalInfo.className}">
-			</tr>
-		</table>
+		<fieldset>
+			<legend>search</legend>
+			<table>
+				<tr>
+					<th>学号</th>
+					<th>姓名</th>
+					<th>修改姓名</th>
+					<th>学院</th>
+					<th>系</th>
+					<th>班级</th>
+				</tr>
+				<tr th:each="s:${studentInfo}">
+					<td th:text="${s.studentId}">
+					<td th:text="${s.studentName}">
+					<td>
+						<form th:action="@{/personalInfo/updateName(studentId=${studentId})}" th:object="${loginInfo}"
+							method="post">
+							<input type="text" placeholder="修改姓名" th:field="*{studentName}" required>
+							<input type="submit" value="修改">
+						</form>
+					</td>
+					<td th:text=" ${s.college}">
+					<td th:text="${s.faculty}">
+					<td th:text="${s.clazz}">
+				</tr>
+			</table>
+		</fieldset>
+		<div class="passWdError">
+			<span th:if="${originalError}" th:text="${originalError}"></span>
+			<span th:if="${confirmError}" th:text="${confirmError}"></span>
+		</div>
+		<div class="upPWSuccess">
+			<span th:if="${updatePWSuccess}" th:text="${updatePWSuccess}"></span>
+		</div>
+		<fieldset>
+			<legend>updatePassWord</legend>
+			<form th:action="@{/personalInfo/updatePassWord(studentId=${studentId})}" th:object="${passWord}" method="post">
+				<input type="password" placeholder="原密码" th:field="*{originalPassWord}" required>
+				<p />
+				<input type="password" placeholder="新密码" th:field="*{newPassWord}" required>
+				<p />
+				<input type="password" placeholder="确认新密码" th:field="*{confirmNew}" required>
+				<p />
+				<input type="submit" value="提交">
+
+			</form>
+		</fieldset>
+
 	</fieldset>
-	<fieldset>
-		<legend>
-			修改学生个人信息
-		</legend>
-		<form th:action="@{/personalInfo/updateName/{studentId}(studentId=${studentId})}" th:object="${studentPersonalInfo}"
-			method="post">
-			<label>修改姓名</label>
-			<input type="text" th:field="*{studentName}" required>
-			<p />
-			<input type="submit" value="修改">
-		</form>
-	</fieldset>
-	<fieldset>
-		<legend>修改密码</legend>
-		<form th:action="@{/personalInfo/updatePassWord/{studentId}(studentId=${studentId})}"
-			th:object="${studentPersonalInfo}" method="post" onsubmit="return confirm()">
-			<label>新密码</label>
-			<input id="pass1" type="password" th:field="*{passWord}" required>
-			<p />
-			<label>确认新密码</label>
-			<input id="pass2" type="password" required>
-			<p />
-			<input type="submit" value="修改">
-		</form>
-	</fieldset>
-	<script>
-		function confirm() {
-			var pass1 = document.getElementById("pass1");
-			var pass2 = document.getElementById("pass2");
-			if (pass1.value != pass2.value) {
-				alert("密码不匹配");
-				return false;
-			}
-			return ok;
-		}
-	</script>
-	<a th:href="@{/studentIndex/{studentId}(studentId=${studentId})}">返回学生主页</a>
+	<a th:href="@{/studentIndex/{studentId}(studentId=${studentId})}">返回主页</a>
 </body>
 
 </html>

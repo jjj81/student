@@ -4,10 +4,30 @@
 		color: red;
 	}
 
+	.reviewPass {
+		color: green;
+	}
+
+	.doubt {
+		color: orange;
+	}
+
+	.reviewNotPass {
+		color: red;
+	}
+
+	.updateError {
+		color: red;
+	}
+
 </style>
 
 <body>
 	<h1>学生刷题信息页</h1>
+	<div class="updateError">
+		<span th:if="${upTimeError}" th:text="${upTimeError}"></span>
+	</div>
+
 	<fieldset>
 		<legend>
 			学生刷题信息查询
@@ -18,10 +38,17 @@
 				<th>刷题网站</th>
 				<th>刷题网站账号</th>
 				<th>解题数量</th>
+				<th>修改截图数量</th>
 				<th>开始刷题日期</th>
+				<th>修改开始日期</th>
 				<th>结束日期</th>
+				<th>修改结束日期</th>
 				<th>网站刷题情况截图</th>
+				<th>教师批注</th>
+				<th>学生留言</th>
+				<th>修改留言</th>
 				<th>删除</th>
+				<th>审核状态</th>
 			</tr>
 			</tr>
 			<tr th:each="info:${personalDoExerciseInfo}">
@@ -29,13 +56,66 @@
 				<td><a th:href="@{'https://'+${info.doExerciseWebSiteUrl}}" th:text="${info.doExerciseWebSiteUrl}"></a></td>
 				<td th:text="${info.doExerciseWebSiteAccount}">
 				<td th:text="${info.solveExerciseNumber}">
+				<td>
+					<form
+						th:action="@{/studentDoExerciseInfo/updateSolveNumber(studentId=${studentId},url=${info.doExerciseWebSiteUrl},account=${info.doExerciseWebSiteAccount})}"
+						th:object="${studentDoExerciseInfo}" method="post">
+						<input type="number" min="0" th:field="*{solveExerciseNumber}" placeholder="修改解决题数" require />
+						<input type="submit" value="修改">
+					</form>
+				</td>
 				<td th:text="${info.doExerciseStartTime}">
+				<td>
+					<form
+						th:action="@{/studentDoExerciseInfo/updateStartTime( studentId=${studentId},url=${info.doExerciseWebSiteUrl},account=${info.doExerciseWebSiteAccount})}"
+						th:object="${studentDoExerciseInfo}" method="post">
+
+						<input type="date" th:field="*{doExerciseStartTime}" required />
+
+						<input type="submit" value="修改">
+					</form>
+				</td>
 				<td th:text="${info.doExerciseEndTime}">
+				<td>
+					<form
+						th:action="@{/studentDoExerciseInfo/updateEndTime( studentId=${studentId},url=${info.doExerciseWebSiteUrl},account=${info.doExerciseWebSiteAccount})}"
+						th:object="${studentDoExerciseInfo}" method="post">
+
+						<input type="date" th:field="*{doExerciseEndTime}" required />
+
+						<input type="submit" value="修改">
+					</form>
+
+
+				</td>
 				<td><a
 						th:href="@{/emage/search(url=${info.doExerciseWebSiteUrl},account=${info.doExerciseWebSiteAccount},studentId=${info.studentId})}">查询</a>
 				</td>
+				<td th:text="${info.teacherComment}">
+				<td th:text="${info.studentComment}">
+				<td>
+					<form
+						th:action="@{/studentDoExerciseInfo/updateStudentComment(studentId=${studentId},url=${info.doExerciseWebSiteUrl},account=${info.doExerciseWebSiteAccount})}"
+						th:object="${studentDoExerciseInfo}" method="post">
+						<textarea th:field="*{studentComment}" placeholder="修改学生留言">
+																												    </textarea>
+						<input type="submit" value="修改">
+					</form>
+				</td>
 				<td><a
 						th:href="@{/studentDoExerciseInfo/delete(doExerciseWebSiteUrl=${info.doExerciseWebSiteUrl},doExerciseWebSiteAccount=${info.doExerciseWebSiteAccount},studentId=${info.studentId})}">删除</a>
+				</td>
+				<td>
+					<span th:if="${info.review  == '0'}" th:text="未审核"></span>
+					<div class="reviewPass">
+						<span th:if="${info.review == '1'}" th:text="审核通过"></span>
+					</div>
+					<div class="reviewNotPass">
+						<span th:if="${info.review == '3'}" th:text="审核不通过"></span>
+					</div>
+					<div class="doubt">
+						<span th:if="${info.review == '4'}" th:text="存疑"></span>
+					</div>
 				</td>
 
 			</tr>
@@ -43,6 +123,7 @@
 	</fieldset>
 	<div class="error">
 		<span th:if="${dateError}" th:text="${dateError}"></span>
+		<span th:if="${infoExist}" th:text="${infoExist}"></span>
 	</div>
 	<fieldset>
 		<legend>

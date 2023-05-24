@@ -126,7 +126,7 @@ public class ImageController {
 		String base64;
 		File file = new File("/home/jsw/project/java/student/src/main/resources/static/images/1.png");
 		base64 = imageService.fileToBase64(imageService.multipartFileToFile(image, file));
-		studentDoExerciseInfoMapper.updateImage3(base64, url, account);
+		studentDoExerciseInfoMapper.updateImage4(base64, url, account);
 
 		model.addAttribute("base64Photo1",
 				studentDoExerciseInfoMapper.selectByUrlAndAccount(url, account).getDoExercisePhoto1());
@@ -151,7 +151,7 @@ public class ImageController {
 		String base64;
 		File file = new File("/home/jsw/project/java/student/src/main/resources/static/images/1.png");
 		base64 = imageService.fileToBase64(imageService.multipartFileToFile(image, file));
-		studentDoExerciseInfoMapper.updateImage3(base64, url, account);
+		studentDoExerciseInfoMapper.updateImage5(base64, url, account);
 
 		model.addAttribute("base64Photo1",
 				studentDoExerciseInfoMapper.selectByUrlAndAccount(url, account).getDoExercisePhoto1());

@@ -14,6 +14,8 @@ doExercisePhoto2 mediumtext ,
 doExercisePhoto3 mediumtext ,
 doExercisePhoto4 mediumtext ,
 doExercisePhoto5 mediumtext ,
-isTure int default 0,
+review  varchar(10) default 0,
+teacherComment varchar(200),
+studentComment varchar(200),
 primary key(doExerciseWebSiteUrl,doExerciseWebSiteAccount)
 );

@@ -19,7 +19,9 @@
 		<fieldset>
 			<legend>
 				老师公告
+
 			</legend>
+			<a th:href="@{/notice/{studentId}(studentId=${studentId})}">公告</a>
 		</fieldset>
 		<fieldset>
 			<legend>
@@ -27,7 +29,7 @@
 			</legend>
 			<a th:href="@{/chatRoom/{studentId}(studentId=${studentId})}">在线交流</a>
 			<p />
-
+			<a th:href="@{/rank/{studentId}(studentId=${studentId})}">同班刷题排行</a>
 		</fieldset>
 	</fieldset>
 

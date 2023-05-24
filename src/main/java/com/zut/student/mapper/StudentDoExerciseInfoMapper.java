@@ -18,6 +18,9 @@ public interface StudentDoExerciseInfoMapper {
 	@Select("select * from studentDoExerciseInfo  where  studentId=#{studentId} ")
 	List<StudentDoExerciseInfo> searchStudentDoExerciseInfoById(String studentId);
 
+	@Select("select * from studentDoExercisInfo  where doExerciseWebSiteUrl=#{doExerciseWebSiteUrl} and doExerciseWebSiteAccount=#{doExerciseWebSiteAccount}")
+	StudentDoExerciseInfo selectDoExerciseByUrlAndAccount(String doExerciseWebSiteUrl, String doExerciseWebSiteAccount);
+    
 	@Delete("delete from studentDoExerciseInfo where doExerciseWebSiteUrl=#{doExerciseWebSiteUrl} and doExerciseWebSiteAccount=#{doExerciseWebSiteAccount}")
 	void deleteStudentDoExerciseInfo(String doExerciseWebSiteUrl, String doExerciseWebSiteAccount);
 
@@ -38,5 +41,17 @@ public interface StudentDoExerciseInfoMapper {
 
 	@Update("update studentDoExerciseInfo set doExercisePhoto5=#{image} where doExerciseWebSiteUrl=#{doExerciseWebSiteUrl} and doExerciseWebSiteAccount=#{doExerciseWebSiteAccount}")
 	void updateImage5(String image, String doExerciseWebSiteUrl, String doExerciseWebSiteAccount);
+
+	@Update("update studentDoExerciseInfo set studentComment=#{studentComment} where doExerciseWebSiteUrl=#{doExerciseWebSiteUrl} and doExerciseWebSiteAccount=#{doExerciseWebSiteAccount}")
+	void updateStudentComment(String studentComment, String doExerciseWebSiteUrl, String doExerciseWebSiteAccount);
+
+	@Update("update studentDoExerciseInfo set solveExerciseNumber=#{number}   where doExerciseWebSiteUrl=#{doExerciseWebSiteUrl} and doExerciseWebSiteAccount=#{doExerciseWebSiteAccount}")
+	int updateSolveNumber(Integer number, String doExerciseWebSiteUrl, String doExerciseWebSiteAccount);
+
+	@Update("update studentDoExerciseInfo set doExerciseStartTime=#{time}   where doExerciseWebSiteUrl=#{doExerciseWebSiteUrl} and doExerciseWebSiteAccount=#{doExerciseWebSiteAccount}")
+	int updateStartTime(Date time, String doExerciseWebSiteUrl, String doExerciseWebSiteAccount);
+
+	@Update("update studentDoExerciseInfo set doExerciseEndTime=#{time}   where doExerciseWebSiteUrl=#{doExerciseWebSiteUrl} and doExerciseWebSiteAccount=#{doExerciseWebSiteAccount}")
+	int updateEndTime(Date time, String doExerciseWebSiteUrl, String doExerciseWebSiteAccount);
 
 }
